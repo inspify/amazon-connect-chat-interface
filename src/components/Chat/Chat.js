@@ -32,14 +32,16 @@ const WelcomeText  = styled(Text)`
   padding-bottom: 10px;
 `
 
+const defaultHeaderText = 'Hi there! ';
+const defaultHeaderDescription = 'This is an example of how customers experience chat on your website';
 
 const defaultHeaderConfig =  {
   isHTML: false,
   render: () => {
     return (
       <HeaderWrapper>
-        <WelcomeText type={'h2'}>Hi there! </WelcomeText>
-        <Text type={'p'}>This is an example of how customers experience chat on your website</Text>
+        <WelcomeText type={'h2'}>{defaultHeaderText}</WelcomeText>
+        <Text type={'p'}>{defaultHeaderDescription}</Text>
       </HeaderWrapper>
     )
   }
@@ -51,7 +53,18 @@ Header.defaultProps = {
 
 function Header({ headerConfig }){
 
-  const config = Object.assign({}, defaultHeaderConfig, headerConfig);
+  let config = Object.assign({}, defaultHeaderConfig, headerConfig);
+
+  if(config.headerText || config.headerDescription){
+    config.render = () => {
+      return (
+      <HeaderWrapper>
+        <WelcomeText type={'h2'}>{config.headerText || defaultHeaderText}</WelcomeText>
+        <Text type={'p'}>{config.headerDescription || defaultHeaderDescription}</Text>
+      </HeaderWrapper>
+      )
+    }
+  }
 
   if(config.isHTML){
     return renderHTML(config.render());
