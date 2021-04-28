@@ -12,7 +12,7 @@ inputs:
 
 outputs:
   - name: connect
-    path: inspify-repository-chat-interface/connect/chat-interface
+    path: inspify-repository-chat-interface/connect
 
 caches:
   - path: inspify-repository-chat-interface/node_modules
@@ -29,4 +29,4 @@ run:
         npm install --silent
         npm run test
         npm run build
-      rm -rf connect && mkdir -p connect/chat-interface/$BUILD_VERSION/ && cp -r build connect/chat-interface/$BUILD_VERSION/
+      mkdir -p connect/chat-interface/$BUILD_VERSION/ && cp -r build connect/chat-interface/$BUILD_VERSION/
