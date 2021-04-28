@@ -1,0 +1,30 @@
+---
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: node
+    tag: '10.16.0'
+
+inputs:
+  - name: inspify-repository-chat-interface
+
+outputs:
+  - name: build
+    path: inspify-repository-chat-interface/connect/build
+
+caches:
+  - path: inspify-repository-chat-interface/node_modules
+
+run:
+  path: /bin/sh
+  args:
+    - -exc
+    - |
+      echo "Node Version: $(node --version)"
+      echo "NPM Version: $(npm --version)"
+      cd inspify-repository-chat-interface
+        npm install --silent
+        npm run test
+        npm run build
