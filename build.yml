@@ -11,7 +11,7 @@ inputs:
   - name: inspify-repository-chat-interface
 
 outputs:
-  - name: build
+  - name: connect
     path: inspify-repository-chat-interface/connect/chat-interface
 
 caches:
