@@ -12,7 +12,7 @@ inputs:
 
 outputs:
   - name: build
-    path: inspify-repository-chat-interface/connect/build
+    path: inspify-repository-chat-interface/connect/chat-interface
 
 caches:
   - path: inspify-repository-chat-interface/node_modules
@@ -22,9 +22,11 @@ run:
   args:
     - -exc
     - |
+      BUILD_VERSION=$(cat inspify-repository-chat-interface/.git/short_ref)
       echo "Node Version: $(node --version)"
       echo "NPM Version: $(npm --version)"
       cd inspify-repository-chat-interface
         npm install --silent
         npm run test
         npm run build
+      mkdir -p connect/chat-interface/$BUILD_VERSION/ && cp -r build connect/chat-interface/$BUILD_VERSION/
